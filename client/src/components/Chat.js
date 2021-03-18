@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
 
+import InfoBar from './InfoBar';
+import Input from './Input';
+import Messages from './Messages';
+
 let socket;
 
 const Chat = ({ location }) => {
@@ -49,17 +53,14 @@ const Chat = ({ location }) => {
 	console.log(messages, message);
 
 	return (
-		<div className='flex justify-center items-center bg-blue-400 h-screen w-100'>
-			<div className='w-full'>
-				<input
-					className='w-full h-12 px-4 text-xl focus:outline-none focus:ring focus:border-blue-200 bg-gray-200 mb-3'
-					placeholder='Room'
-					type='text'
-					onChange={(e) => setMessage(e.target.value)}
-					value={message}
-					onKeyPress={(e) =>
-						e.key === 'Enter' ? sendMessage(e) : null
-					}
+		<div className='flex justify-center items-center bg-black h-screen w-full'>
+			<div className='w-1/2 h-1/2 rounded-md flex justify-between flex-col bg-white'>
+				<InfoBar room={room} />
+				<Messages messages={messages} name={name} />
+				<Input
+					message={message}
+					setMessage={setMessage}
+					sendMessage={sendMessage}
 				/>
 			</div>
 		</div>
